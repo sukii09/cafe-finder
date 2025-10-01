@@ -4,6 +4,31 @@
 let lastResults = [];
 let lastLatLng = null;
 
+// dark mode n light mode toggles 
+const THEME_KEY = 'theme';
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem(THEME_KEY, t);
+  const btn = document.getElementById('themeToggle');
+  if (btn){
+    btn.setAttribute('aria-pressed', String(t === 'dark'));
+    btn.textContent = t === 'dark' ? '☀️ Light' : '🌑 Dark';
+  }
+}
+// gather from saved or system preference
+(function(){
+  const saved = localStorage.getItem(THEME_KEY);
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+})();
+document.addEventListener('click', (e)=>{
+  if (e.target && e.target.id === 'themeToggle'){
+    const cur = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  }
+});
+
+
 function getSaved() {
   return JSON.parse(localStorage.getItem('savedCafes') || '[]');
 }
@@ -261,4 +286,7 @@ function displayCards(cafes) {
       });
     }
   });
+
+
+
 }

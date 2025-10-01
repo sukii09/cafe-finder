@@ -6,26 +6,80 @@ button { cursor: pointer }
 /* (matcha) */
 ::selection { background: #cfeadd; color: #171717; }
 
+/* dark and light mode themes */
+:root{
+  /* Light (Matcha Mocha) */
+  --bg: #f7f5f1;
+  --bg-accent-1: #ffe7c4;        /* crema splash */
+  --bg-accent-2: rgba(42,127,98,.10);
+  --ink: #141414;
+  --muted: #596073;
+
+  --card: #fffaf3;               /* latte foam */
+  --border: #e7e3dc;
+
+  --bean: #2a7f62;               /* primary */
+  --bean-dark: #136f3a;
+  --berry: #7b2451;              /* save btn accent */
+
+  --badge-open-bg: #e6f6ee;
+  --badge-open-br: #bfe8d6;
+  --badge-closed-bg: #ffe8e8;
+  --badge-closed-br: #ffd0d0;
+  --badge-unk-bg: #f2f2f2;
+  --badge-unk-br: #e5e5e5;
+
+  --shadow: 0 10px 26px rgba(0,0,0,.08);
+  --radius: 16px;
+}
+
+/* Dark theme */
+:root[data-theme="dark"]{
+  --bg: #0f1214;
+  --bg-accent-1: #1c2321;
+  --bg-accent-2: rgba(131, 197, 176, .08);
+  --ink: #e9ecef;
+  --muted: #9aa3ad;
+
+  --card: #171a1d;
+  --border: #2a2f33;
+
+  --bean: #69c3a0;
+  --bean-dark: #3aa87f;
+  --berry: #ff6aa0;
+
+  --badge-open-bg: rgba(105,195,160,.18);
+  --badge-open-br: rgba(105,195,160,.35);
+  --badge-closed-bg: rgba(255,120,120,.16);
+  --badge-closed-br: rgba(255,120,120,.32);
+  --badge-unk-bg: rgba(255,255,255,.08);
+  --badge-unk-br: rgba(255,255,255,.18);
+
+  --shadow: 0 12px 32px rgba(0,0,0,.45);
+}
+
+
 body{
   margin: 0;
-  /* colour adjustments */
+  color: var(--ink);
   background:
-    radial-gradient(1000px 700px at 90% -10%, #8c7148 0%, transparent 45%),
-    #f7f5f1;
-  color: #171717;
-  font-family: "Savate", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    radial-gradient(1000px 700px at 90% -10%, var(--bg-accent-1) 0%, transparent 45%),
+    radial-gradient(800px 600px at -15% 90%, var(--bg-accent-2) 0%, transparent 50%),
+    var(--bg);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   text-align: center;
   padding: 24px 16px;
 }
 
+h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: .2px; }
 h1{
   margin: 0 0 8px;
-  font-size: 24px;            
+  font-size: 24px;
   font-weight: 800;
-  letter-spacing: .2px;
   animation: pop-in .35s ease-out both; 
 }
-p{ margin: 0 0 16px; color: #596073; }   
+p{ margin: 0 0 16px; color: var(--muted); }
+
 
 @keyframes pop-in{
   from { transform: translateY(6px); opacity: .001 }
@@ -41,17 +95,17 @@ p{ margin: 0 0 16px; color: #596073; }
 }
 
 button{
-  font: 700 18px/1.1 "Savate", sans-serif;
-  /* matcha vibeeee */
-  background: linear-gradient(180deg, #2a7f62 0%, #136f3a 100%);
+  font: 700 16px/1.1 "Inter", sans-serif;
+  background: linear-gradient(180deg, var(--bean) 0%, var(--bean-dark) 100%);
   color: #fff;
-  border: 1px solid #e7e3dc;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 11px 16px;
+  padding: 10px 14px;
   transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
-  box-shadow: 0 2px 0 rgba(0,0,0,.06), 0 8px 18px rgba(42,127,98,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.06), 0 8px 18px rgba(0,0,0,.12);
   outline: none;
 }
+
 button:hover{
   transform: translateY(-1px);
   filter: brightness(1.02);
@@ -68,12 +122,18 @@ button:active{
   max-width: 360px;  
   margin: 2rem auto;
   min-height: 420px;
-  background: linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.2));
-  border: 1px solid #e7e3dc;
-  border-radius: 16px;
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  background: linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,.15));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   padding: 12px;
+  backdrop-filter: blur(6px);
 }
+:root[data-theme="dark"] .cards{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+}
+
+
 
 /* for java code later */
 .swipe-wrapper{
@@ -86,8 +146,8 @@ button:active{
   width: 100%;
   background:
     radial-gradient(500px 220px at 110% -40%, rgba(42,127,98,.07) 0%, transparent 65%),
-    #fffaf3; /* latte foam */
-  border: 1px solid #e7e3dc;
+    var(--card);
+  border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
   text-align: left;
@@ -95,6 +155,12 @@ button:active{
   box-shadow: 0 8px 20px rgba(0,0,0,.08);
   animation: float-in .35s ease-out both;
 }
+:root[data-theme="dark"] .location-card{
+  background:
+    radial-gradient(500px 220px at 110% -40%, rgba(105,195,160,.08) 0%, transparent 65%),
+    var(--card);
+}
+
 @keyframes float-in{
   from { transform: translateY(8px); opacity: .001 }
   to   { transform: translateY(0);   opacity: 1 }
@@ -120,13 +186,20 @@ button:active{
 .controls{
   display:flex; gap:8px; align-items:center; justify-content:center;
   margin: 6px 0 10px;
-  font-size: 14px; color:#596073;
+  font-size: 14px; color: var(--muted);
 }
 .controls select{
-  font: 600 14px/1 "Savate", sans-serif;
-  padding: 6px 10px; border-radius: 10px; border:1px solid #e7e3dc;
-  background:#fff; outline:none;
+  font: 600 14px/1 "Inter", sans-serif;
+  padding: 6px 10px; border-radius: 10px; border:1px solid var(--border);
+  background:#fff; outline:none; color: var(--ink);
 }
+/* dark variant (separate rule!) */
+:root[data-theme="dark"] .controls select{
+  background: var(--bg);
+  color: var(--ink);
+  border-color: var(--border);
+}
+
 
 .badge{
   display:inline-block; font-size:12px; font-weight:700;
@@ -140,22 +213,26 @@ button:active{
   display:flex; gap:8px; margin-top:8px;
 }
 .save-btn{
-  font: 700 14px/1 "Savate", sans-serif;
+  font: 700 14px/1 "Inter", sans-serif;
   background:#ffe8f2;
-  color:#7b2451;
+  color: var(--berry);
   border:1px solid #ffd0e5;
   border-radius:10px;
   padding:8px 10px;
   cursor:pointer;
 }
+:root[data-theme="dark"] .save-btn{
+  background: rgba(255,106,160,.14);
+  color:#ff9cc1;
+  border-color: rgba(255,106,160,.35);
+}
+.remove-btn{
+  font: 700 12px/1 "Inter", sans-serif;
+}
+
 .save-btn:hover{ filter: brightness(1.03); }
 
 #savedCount{ font-weight:700 }
-.remove-btn{
-  font: 700 12px/1 "Savate", sans-serif;
-  background:#fff1f1; color:#7a1f1f; border:1px solid #ffd6d6;
-  border-radius:10px; padding:6px 10px; cursor:pointer; margin-top:6px;
-}
 
 
 @keyframes shimmer{

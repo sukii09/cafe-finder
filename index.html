@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>☕️ Find Your New Caffeine Addiction Spot 🫘</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Savate:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css" />
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQAWE9RJ3rZ1FuuweRlbKLNafPJqgpabc&libraries=places&v=weekly"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
@@ -19,6 +19,7 @@
     <button onclick="getLocation()">☕️ Scout cafés near me</button>
 <button onclick="showSaved()">🫘 Show saved cafés <span id="savedCount" aria-hidden="true"></span></button>
 <button onclick="clearSaved()">🗑️ Clear saved cafés</button>
+<button id="themeToggle" class="ghost" aria-pressed="false">🌑 Dark</button>
     <div class="controls">
   <label for="openFilter">Status:</label>
   <select id="openFilter">
