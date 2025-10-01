@@ -15,5 +15,5 @@ cafe-finder/
 
 
 # Credits
-Inspired by the Codedex cafe finder tutorial (https://www.codedex.io/projects/build-a-cafe-finder-with-javascript)
-Front end UI,  and cursor obtained from the matcha society products and implemented by @sukii09.
+Inspiration gathered from a Codedex cafe finder tutorial 
+Front end UI, implemented by @sukii09, and cursor obtained from the matcha society products 
