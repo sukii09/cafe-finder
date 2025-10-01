@@ -1,6 +1,6 @@
 // cafe.js 
 
-// filter helpers
+// helper functions
 let lastResults = [];
 let lastLatLng = null;
 
@@ -8,6 +8,44 @@ function getFilter() {
   const sel = document.getElementById("openFilter");
   return sel ? sel.value : "all";
 }
+
+function saveCafe(cafe) {
+  const saved = JSON.parse(localStorage.getItem('savedCafes') || '[]');
+  if (!saved.find(c => c.place_id === cafe.place_id)) {
+    saved.push(cafe);
+    localStorage.setItem('savedCafes', JSON.stringify(saved));
+    //
+    try { navigator.vibrate && navigator.vibrate(30); } catch {}
+  } else {
+    // already saveddd
+  }
+}
+
+function showSaved() {
+  const container = document.querySelector('.cards');
+  container.innerHTML = '';
+  const saved = JSON.parse(localStorage.getItem('savedCafes') || '[]');
+
+  if (!saved.length) {
+    container.innerHTML = '<p>No saved cafés yet 😢</p>';
+    return;
+  }
+
+  saved.forEach(c => {
+    const card = document.createElement('article');
+    card.className = 'location-card';
+    card.innerHTML = `
+      <img src="${c.photo}" alt="${c.name}" />
+      <div class="card-body">
+        <h3>${c.name}</h3>
+        <p>⭐️ ${c.rating ?? 'N/A'}</p>
+        ${c.address ? `<p><small>${c.address}</small></p>` : ''}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
 
 function applyFilterAndRender() {
   const mode = getFilter();
@@ -87,7 +125,7 @@ function runNearby(lat, lng) {
   service.nearbySearch(
     {
       location: new google.maps.LatLng(lat, lng),
-      radius: 1500,
+      radius: 3000,
       type: "cafe",
       openNow: wantOpenOnly ? true : undefined,
     },
@@ -113,7 +151,7 @@ function runNearby(lat, lng) {
   );
 }
 
-// 
+// display cards functions and swipe gestures and saved cafe data 
 function displayCards(cafes) {
   const container = document.querySelector(".cards");
   container.innerHTML = "";
@@ -144,6 +182,15 @@ function displayCards(cafes) {
       badgeText = "Closed now";
     }
 
+    // object we store if user saves
+    const cafeObj = {
+      name: cafe.name,
+      place_id: cafe.place_id,
+      photo: photoUrl,
+      rating,
+      address
+    };
+
     card.innerHTML = `
       <img src="${photoUrl}" alt="${cafe.name}" />
       <div class="card-body">
@@ -153,11 +200,38 @@ function displayCards(cafes) {
           &nbsp; ⭐️ ${rating}
         </p>
         ${address ? `<p><small>${address}</small></p>` : ""}
-        <p><small>Swipe to save 🎀 (function coming soon)</small></p>
+        <div class="actions-row">
+          <button class="save-btn" type="button">💖 Save</button>
+        </div>
       </div>
     `;
 
+    // clicking to save
+    card.querySelector(".save-btn").onclick = () => {
+      saveCafe(cafeObj);
+      // tiny visual nudge
+      wrapper.style.transform = 'translateX(150%) rotate(12deg)';
+      wrapper.style.opacity = 0;
+      setTimeout(() => wrapper.remove(), 120);
+    };
+
     wrapper.appendChild(card);
     container.appendChild(wrapper);
+
+    // swipe gestures using hammer (implemented in html already)
+    if (window.Hammer) {
+      const hammertime = new Hammer(wrapper);
+      hammertime.on('swipeleft', () => {
+        wrapper.style.transform = 'translateX(-150%) rotate(-12deg)';
+        wrapper.style.opacity = 0;
+        setTimeout(() => wrapper.remove(), 120);
+      });
+      hammertime.on('swiperight', () => {
+        saveCafe(cafeObj);
+        wrapper.style.transform = 'translateX(150%) rotate(12deg)';
+        wrapper.style.opacity = 0;
+        setTimeout(() => wrapper.remove(), 120);
+      });
+    }
   });
 }

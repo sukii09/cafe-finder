@@ -136,6 +136,21 @@ button:active{
 .badge-closed{ background:#ffe8e8; border-color:#ffd0d0; }
 .badge-unknown{ background:#f2f2f2; border-color:#e5e5e5; }
 
+.actions-row{
+  display:flex; gap:8px; margin-top:8px;
+}
+.save-btn{
+  font: 700 14px/1 "Savate", sans-serif;
+  background:#ffe8f2;
+  color:#7b2451;
+  border:1px solid #ffd0e5;
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+}
+.save-btn:hover{ filter: brightness(1.03); }
+
+
 @keyframes shimmer{
   0%   { background-position: 100% 0; }
   100% { background-position: -100% 0; }
