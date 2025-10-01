@@ -10,7 +10,7 @@ body{
   margin: 0;
   /* colour adjustments */
   background:
-    radial-gradient(1000px 700px at 90% -10%, #ffe7c4 0%, transparent 45%),
+    radial-gradient(1000px 700px at 90% -10%, #8c7148 0%, transparent 45%),
     #f7f5f1;
   color: #171717;
   font-family: "Savate", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -117,6 +117,25 @@ button:active{
   background-size: 400% 100%;
   animation: shimmer 1.2s linear infinite;
 }
+.controls{
+  display:flex; gap:8px; align-items:center; justify-content:center;
+  margin: 6px 0 10px;
+  font-size: 14px; color:#596073;
+}
+.controls select{
+  font: 600 14px/1 "Savate", sans-serif;
+  padding: 6px 10px; border-radius: 10px; border:1px solid #e7e3dc;
+  background:#fff; outline:none;
+}
+
+.badge{
+  display:inline-block; font-size:12px; font-weight:700;
+  padding:4px 8px; border-radius:999px; border:1px solid transparent;
+}
+.badge-open{ background:#e6f6ee; border-color:#bfe8d6; }
+.badge-closed{ background:#ffe8e8; border-color:#ffd0d0; }
+.badge-unknown{ background:#f2f2f2; border-color:#e5e5e5; }
+
 @keyframes shimmer{
   0%   { background-position: 100% 0; }
   100% { background-position: -100% 0; }

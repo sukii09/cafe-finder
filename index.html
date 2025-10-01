@@ -7,6 +7,8 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Savate:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css" />
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQAWE9RJ3rZ1FuuweRlbKLNafPJqgpabc&libraries=places&v=weekly"></script>
+  <script src="./cafe.js" defer></script>
 </head>
 <body>
   <h1>☕️ Find Your New Caffeine Addiction Spot 🫘</h1>
@@ -15,12 +17,21 @@
   <div class="actions">
     <button onclick="getLocation()">☕️ Scout cafés near me</button>
     <button onclick="showSaved()">🫘 Show saved cafés</button>
+    <div class="controls">
+  <label for="openFilter">Status:</label>
+  <select id="openFilter">
+    <option value="all" selected>All</option>
+    <option value="open">Open now</option>
+    <option value="closed">Closed now</option>
+  </select>
+</div>
+
   </div>
 
   <div class="cards">
     <article class="location-card">
       <div class="ph"></div>
-      <h3>Can I be Brew-tally honest? you need a new spot. 🫡</h3>
+      <h3>Can I be Brew-tally honest? You need a new spot. 🫡</h3>
       <p>Click "Scout cafés near me" to load nearby spots.</p>
     </article>
   </div>
