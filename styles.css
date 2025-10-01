@@ -150,6 +150,13 @@ button:active{
 }
 .save-btn:hover{ filter: brightness(1.03); }
 
+#savedCount{ font-weight:700 }
+.remove-btn{
+  font: 700 12px/1 "Savate", sans-serif;
+  background:#fff1f1; color:#7a1f1f; border:1px solid #ffd6d6;
+  border-radius:10px; padding:6px 10px; cursor:pointer; margin-top:6px;
+}
+
 
 @keyframes shimmer{
   0%   { background-position: 100% 0; }

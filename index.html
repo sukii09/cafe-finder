@@ -17,7 +17,8 @@
 
   <div class="actions">
     <button onclick="getLocation()">☕️ Scout cafés near me</button>
-    <button onclick="showSaved()">🫘 Show saved cafés</button>
+<button onclick="showSaved()">🫘 Show saved cafés <span id="savedCount" aria-hidden="true"></span></button>
+<button onclick="clearSaved()">🗑️ Clear saved cafés</button>
     <div class="controls">
   <label for="openFilter">Status:</label>
   <select id="openFilter">

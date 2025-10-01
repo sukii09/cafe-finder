@@ -4,6 +4,22 @@
 let lastResults = [];
 let lastLatLng = null;
 
+function getSaved() {
+  return JSON.parse(localStorage.getItem('savedCafes') || '[]');
+}
+function setSaved(list) {
+  localStorage.setItem('savedCafes', JSON.stringify(list));
+  updateSavedCount();
+}
+function updateSavedCount() {
+  const el = document.getElementById('savedCount');
+  if (el) {
+    const n = getSaved().length;
+    el.textContent = n ? `(${n})` : '';
+  }
+}
+// call once on load
+document.addEventListener('DOMContentLoaded', updateSavedCount);
 function getFilter() {
   const sel = document.getElementById("openFilter");
   return sel ? sel.value : "all";
@@ -21,16 +37,20 @@ function saveCafe(cafe) {
   }
 }
 
+function clearSaved() {
+  setSaved([]);
+  showSaved();
+}
+
+
 function showSaved() {
   const container = document.querySelector('.cards');
   container.innerHTML = '';
-  const saved = JSON.parse(localStorage.getItem('savedCafes') || '[]');
-
+  const saved = getSaved();
   if (!saved.length) {
     container.innerHTML = '<p>No saved cafés yet 😢</p>';
     return;
   }
-
   saved.forEach(c => {
     const card = document.createElement('article');
     card.className = 'location-card';
@@ -40,11 +60,18 @@ function showSaved() {
         <h3>${c.name}</h3>
         <p>⭐️ ${c.rating ?? 'N/A'}</p>
         ${c.address ? `<p><small>${c.address}</small></p>` : ''}
+        <button class="remove-btn" type="button">Remove</button>
       </div>
     `;
+    card.querySelector('.remove-btn').onclick = () => {
+      const list = getSaved().filter(x => x.place_id !== c.place_id);
+      setSaved(list);
+      showSaved();
+    };
     container.appendChild(card);
   });
 }
+
 
 
 function applyFilterAndRender() {
