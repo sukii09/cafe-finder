@@ -13,6 +13,9 @@ cafe-finder/
 └─ images/
 └─ whisk.png
 
+# got user feedback and new implementations im going to put into cafe (potentially end of this week 5th october 2025)
+- the use of an undo or back button
+- adjust clear saved cafes to a 'manage saved cafes' put in toggle options to, ascending - descending order for improvements on UI
 
 # Credits
 Inspiration gathered from a Codedex cafe finder tutorial 
